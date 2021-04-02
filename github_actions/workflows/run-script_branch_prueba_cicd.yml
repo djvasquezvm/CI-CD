@@ -1,0 +1,16 @@
+on: 
+  push:
+    branches:
+      - prueba_cicd
+name: run script branch prueba_cicd
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Permissions script
+      run: chmod +x ./.github/scripts/script_hello_world.sh
+      shell: bash
+    - name: Run script
+      run: ./.github/scripts/script_hello_world.sh
+      shell: bash

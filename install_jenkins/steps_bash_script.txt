@@ -1,0 +1,48 @@
+#Centos7
+
+#Install java
+yum install java-1.8.0-openjdk-devel -y
+
+#enable jenkins repository
+curl --silent --location http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo | sudo tee /etc/yum.repos.d/jenkins.repo
+rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+
+#install jenkins git and wget
+yum install jenkins git wget -y
+
+#Start jenkins
+systemctl start jenkins
+
+#Check jenkins
+systemctl status jenkins -l
+
+#Enable jenkins
+systemctl enable jenkins
+
+#allow 8080 input port
+iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+iptables-save > /etc/sysconfig/iptables
+
+#print admin password
+cat /var/lib/jenkins/secrets/initialAdminPassword
+
+#install suggested plugins
+
+#Your PC: Make sure you are allowing outgoing packages with destination port 8080
+
+#Download jenkins cli
+wget http://localhost:8080/jnlpJars/jenkins-cli.jar
+
+#Create API Token in user configuration
+
+#then connect
+alias jenkins="java -jar jenkins-cli.jar -s http://localhost:8080 -auth user:token"
+jenkins help 
+
+#Install blueocean, jobdsl and kubernetes plugin
+jenkins install-plugin blueocean -deploy 
+jenkins install-plugin job-dsl -deploy 
+jenkins install-plugin kubernetes-cli -deploy 
+jenkins install-plugin kubernetes -deploy 
+jenkins install-plugin kubernetes-credentials -deploy 
+jenkins install-plugin kubernetes-cd -deploy -restart

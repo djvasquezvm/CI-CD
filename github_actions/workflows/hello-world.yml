@@ -1,0 +1,18 @@
+on:
+  push:
+    branches:
+      - master
+name: hello world from master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run a one-line script
+      run: echo Hello, world!
+      shell: bash
+    - name: Run a multi-line script
+      run: |
+        echo Hello world - line one,
+        echo Hello world - line two.
+      shell: bash

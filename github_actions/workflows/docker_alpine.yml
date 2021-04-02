@@ -1,0 +1,11 @@
+on:
+  push:
+    branches:
+      - prueba_cicd
+name: run docker alpine branch prueba_cicd
+jobs:
+  run_docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run docker alpine
+        uses: docker://alpine:3.8

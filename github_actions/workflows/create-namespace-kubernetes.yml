@@ -1,0 +1,17 @@
+on:
+  push:
+    branches:
+      - master
+name: create namespace in kubernetes
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: docker://lachlanevenson/k8s-kubectl
+    - name: check nodes kubernetes
+      uses: steebchen/kubectl@master
+      env:
+        KUBE_CONFIG_DATA: ${{ secrets.KUBERNETES_CONFIG }}
+      with:
+        args: 'get nodes'

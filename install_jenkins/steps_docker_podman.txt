@@ -1,0 +1,8 @@
+#Fedora32
+
+#Run docker-compose
+podman run -d -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins
+
+#print admin password
+podman exec ID_Container_Jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+

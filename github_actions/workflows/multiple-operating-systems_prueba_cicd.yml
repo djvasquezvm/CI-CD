@@ -1,0 +1,21 @@
+on: 
+  push:
+    branches:
+      - prueba_cicd
+name: setup node and install bats
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - name: install the bats software testing package.
+      run: npm install -g bats
+    - name: outputs the software version
+      run: bats -v

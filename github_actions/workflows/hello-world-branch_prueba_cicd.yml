@@ -1,0 +1,18 @@
+on: 
+  push:
+    branches:
+      - prueba_cicd
+name: hello world from branch prueba_cicd
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run a one-line script
+      run: echo Hello, world! from branch prueba_cicd
+      shell: bash
+    - name: Run a multi-line script
+      run: |
+        echo Hello world - line one from branch prueba_cicd,
+        echo Hello world - line two from branch prueba_cicd.
+      shell: bash
